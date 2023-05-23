@@ -1,0 +1,10 @@
+nssm install "TitoAI" "D:\Software\portable\AI\T800\env\Scripts\python.exe" "D:\Software\portable\AI\T800\server.py"
+
+nssm set "TitoAI" AppStdout "D:\Software\portable\AI\T800\service\out_file.txt"
+nssm set "TitoAI" AppStderr "D:\Software\portable\AI\T800\service\error_file.txt"
+
+nssm start "TitoAI"
+
+nssm stop "TitoAI"
+
+nssm remove "TitoAI" confirm
