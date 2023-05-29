@@ -5,3 +5,6 @@ old
 service/error_file.txt
 service/out_file.txt
 env
+test
+models
+ggml
