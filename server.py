@@ -1,7 +1,13 @@
 from flask import Flask, jsonify, request
-import json
+import json, os
 
 app = Flask(__name__)
+
+# fix path nonsense
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path)
+
 
 # codehint api
 
@@ -15,7 +21,7 @@ def apicodehint():
     return jsonify(result)
 
 
-# codesyntax hint api
+# codesyntax api
 
 from codesyntax import codesyntax
 
@@ -25,6 +31,20 @@ def apicodesyntax():
     code = request.json.get("code")
     result = codesyntax(code[:512])
     return jsonify({"lang": result})
+
+
+# codegenerator api
+# this consumes too much vram (4.5gb~)
+
+from replit_codeinstruct import codegenerator
+
+
+@app.route("/codegenerator", methods=["POST"])
+def apicodegenerator():
+    prompt = request.json.get("prompt")
+    context = request.json.get("context")
+    result = codegenerator(prompt, context)
+    return jsonify({"output": result})
 
 
 # server start
